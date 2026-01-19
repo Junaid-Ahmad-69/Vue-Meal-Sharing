@@ -1,34 +1,39 @@
 <script setup>
-import { ref } from 'vue';
+import {useMealStore} from "../../store/mealStore.js";
+import {onMounted} from "vue";
+import Card from "@/components/ui/Card.vue";
+import Banner from "@/components/Banner.vue";
 
-// Create a reactive variable for the date
-const selectedDate = ref(null);
 
-const handleDateChange = (date, dateString) => {
-  console.log('Selected Date:', date);
-  console.log('Formatted String:', dateString);
-};
+const mealStore= useMealStore()
+
+
+onMounted(() => {
+  mealStore.fetchListMeals()
+})
+
+
 </script>
 
+
 <template>
-  <div style="padding: 20px;">
-    <h3>Select a Date:</h3>
-    <a-date-picker
-        v-model:value="selectedDate"
-        @change="handleDateChange"
-        placeholder="Select vegetable harvest date"
+
+  <Banner
+      title="Today's Meals Deal"
+      description="A delicious meal is more than just sustenance; it is a symphony of flavors and aromas that
+      brings comfort to the soul and joy to the senses. Whether shared with loved ones or enjoyed in a quiet moment,
+      every bite tells a story of culture, tradition, and the simple pleasure of good taste." />
+
+
+  <div v-if="mealStore.isLoading">Loading....</div>
+
+  <div class="flex flex-wrap items-center justify-between" v-else>
+    <Card
+        v-for="meal in mealStore.meals"
+        :key="meal.idIngredient"
+        :name="meal.strIngredient"
+        :src="meal.strThumb"
+        :description="meal.strDescription"
     />
-
-    <p v-if="selectedDate">
-      You selected: {{ selectedDate.format('YYYY-MM-DD') }}
-    </p>
   </div>
-
-    <div style="padding: 50px; text-align: center;">
-      <a-button type="primary" size="large">
-        If you see this Blue Button, it works!
-      </a-button>
-      <br /><br />
-      <a-date-picker />
-    </div>
 </template>
