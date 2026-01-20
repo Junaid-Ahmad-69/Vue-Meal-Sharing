@@ -42,3 +42,16 @@ npm run build
 ```sh
 npm run lint
 ```
+
+
+
+
+<img width="1917" height="1028" alt="Screenshot from 2026-01-20 17-57-12" src="https://github.com/user-attachments/assets/f1faa13c-41ec-4ce2-8584-b300b6d8e5ed" />
+<img width="1917" height="1028" alt="Screenshot from 2026-01-20 17-57-12" src="https://github.com/user-attachments/assets/5180ba35-d440-446f-a80a-18d553403221" />
+<img width="1917" height="1028" alt="Screenshot from 2026-01-20 17-57-23" src="https://github.com/user-attachments/assets/ec708b7b-089a-4d84-bda8-41aaee3fd61d" />
+<img width="1917" height="1028" alt="Screenshot from 2026-01-20 17-57-46" src="https://github.com/user-attachments/assets/eae5d0ac-399d-43bb-84a1-bf2ba6fde8c2" />
+<img width="1917" height="1028" alt="Screenshot from 2026-01-20 17-58-10" src="https://github.com/user-attachments/assets/b86bbe66-92d3-4c6d-bd8d-a7077f759601" />
+
+
+
+
