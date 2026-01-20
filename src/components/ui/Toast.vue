@@ -1,8 +1,22 @@
+<script setup>
+defineProps({
+  direction: {
+    type: String,
+    default: 'vertical',
+  },
+  message: {
+    type: String,
+    required: true,
+  },
+  type: {
+    type: String,
+    required: true,
+    default: 'success',
+  }
+})
+</script>
 <template>
-  <a-space direction="vertical" style="width: 100%">
-    <a-alert message="Success Tips" type="success" show-icon />
-    <a-alert message="Informational Notes" type="info" show-icon />
-    <a-alert message="Warning" type="warning" show-icon />
-    <a-alert message="Error" type="error" show-icon />
+  <a-space :direction="direction" class="w-100">
+    <a-alert :message="message" :type="type" show-icon/>
   </a-space>
 </template>

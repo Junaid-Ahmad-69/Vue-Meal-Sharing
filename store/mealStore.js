@@ -1,5 +1,6 @@
 import {defineStore} from "pinia";
 import {mealServices} from "@/services/mealServices.js";
+import {notification} from "ant-design-vue";
 
 export const useMealStore = defineStore('mealStore', {
     state: ()=> ({
@@ -12,13 +13,17 @@ export const useMealStore = defineStore('mealStore', {
     }),
 
     getters: {
-        // mealCount (){
-        //     this.meals = []
-        //     return this.meals.length
-        // }
+        hasMealCount() {
+            return this.meals.length === 0
+        },
+        hasAreaMealCount() {
+            return this.areaMeals.length === 0
+        },
+        hasCategoryCount() {
+            return this.categories.length === 0
+        },
+
     },
-
-
 
     actions: {
         async fetchListMeals() {
@@ -28,7 +33,12 @@ export const useMealStore = defineStore('mealStore', {
                 const data = await mealServices.getListMeals();
                 this.meals = data.meals || [];
             } catch (err) {
-                this.errors = err;
+                this.error = err.message || "Failed to fetch meals";
+                // message.error(this.error);
+                notification.error({
+                    message: 'Error Fetching',
+                    description: this.error,
+                });
             } finally {
                 this.isLoading = false;
             }
@@ -39,9 +49,13 @@ export const useMealStore = defineStore('mealStore', {
             try {
                 const data = await mealServices.getCategoryMeal();
                 this.categories = data.categories || [];
-                console.log(data)
             } catch (err) {
-                this.errors = err;
+                this.error = err.message || "Failed to fetch category meals";
+                notification.error({
+                    message: 'Error Fetching',
+                    description: this.error,
+                });
+
             } finally {
                 this.isLoading = false;
             }
@@ -54,7 +68,11 @@ export const useMealStore = defineStore('mealStore', {
                 const data = await mealServices.getAreaList();
                 this.area = data.meals || [];
             } catch (err) {
-                this.errors = err;
+                this.error = err.message || "Failed to fetch area list";
+                notification.error({
+                    message: 'Error Fetching',
+                    description: this.error,
+                });
             } finally {
                 this.isLoading = false;
             }
@@ -66,7 +84,11 @@ export const useMealStore = defineStore('mealStore', {
                 const data = await mealServices.getAreaMeals(val);
                 this.areaMeals = data.meals || [];
             } catch (err) {
-                this.errors = err;
+                this.error = err.message || "Failed to fetch area meals";
+                notification.error({
+                    message: 'Error Fetching',
+                    description: this.error,
+                });
             } finally {
                 this.isLoading = false;
             }

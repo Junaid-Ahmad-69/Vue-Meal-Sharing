@@ -4,11 +4,17 @@ import {useMealStore} from "../../store/mealStore.js";
 import {onMounted} from "vue";
 import Card from "@/components/ui/Card.vue";
 import Skeleton from "@/components/ui/Skeleton.vue";
+import Empty from "@/components/ui/Empty.vue";
+import {storeToRefs} from "pinia";
 
 const mealStore = useMealStore()
 
+const {fetchCategoryMeals} = mealStore
+const {hasCategoryCount, isLoading, categories} = storeToRefs(mealStore)
+
+
 onMounted(() => {
-  mealStore.fetchCategoryMeals()
+  fetchCategoryMeals()
 })
 
 </script>
@@ -16,14 +22,18 @@ onMounted(() => {
   <Banner title="Recipe Categories"
           description="Every great chef knows that quality meals begin with quality ingredients. Explore our categories to find inspiration and the building blocks for a healthier lifestyle."/>
 
-  <div v-if="mealStore.isLoading" class="flex flex-wrap items-center justify-between">
+  <div v-if="isLoading" class="flex flex-wrap items-center justify-between">
     <div v-for="n in 8" :key="n" class="w-80 p-4 bg-white rounded-lg border border-gray-100 m-4">
       <Skeleton active :paragraph="{ rows: 8 }" />
     </div>
   </div>
+  <div v-else-if="hasCategoryCount" class="text-center lg:pt-60 pt-32">
+    <Empty description="Currently No Category Available!"/>
+
+  </div>
   <div class="mt-8 grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5" v-else>
     <Card
-        v-for="category in mealStore.categories"
+        v-for="category in categories"
         :key="category.idCategory"
         :description="category.strCategoryDescription"
         :name="category.strCategory"
