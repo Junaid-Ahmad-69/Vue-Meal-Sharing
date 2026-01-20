@@ -27,10 +27,11 @@ onMounted(() => {
       <Skeleton active :paragraph="{ rows: 8 }" />
     </div>
   </div>
+
   <div v-else-if="hasCategoryCount" class="text-center lg:pt-60 pt-32">
     <Empty description="Currently No Category Available!"/>
-
   </div>
+
   <div class="mt-8 grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5" v-else>
     <Card
         v-for="category in categories"

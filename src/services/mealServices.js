@@ -11,6 +11,12 @@ export const mealServices = {
         return axiosClient.get('/list.php?a=list')
     },
     getAreaMeals(val){
-        return axiosClient.get(`search.php?s=${val}`)
-    }
+        return axiosClient.get(`/search.php?s=${val}`)
+    },
+    getSearchAlphabetsMeals(val){
+        return axiosClient.get(`/search.php?f=${val}`)
+    },
+    getMealDetails(id){
+        return axiosClient.get(`/lookup.php?i=${id}`)
+    },
 }

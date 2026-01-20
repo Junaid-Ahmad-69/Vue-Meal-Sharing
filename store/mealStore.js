@@ -10,9 +10,11 @@ export const useMealStore = defineStore('mealStore', {
         area : [],
         areaMeals: [],
         error: null,
+        mealDetails : [],
     }),
 
     getters: {
+
         hasMealCount() {
             return this.meals.length === 0
         },
@@ -22,16 +24,20 @@ export const useMealStore = defineStore('mealStore', {
         hasCategoryCount() {
             return this.categories.length === 0
         },
+        hasMealDetailCount() {
+            return this.mealDetails.length === 0
+        },
 
     },
 
     actions: {
-        async fetchListMeals() {
+        async fetchAlphabetsMeals(val) {
             this.isLoading = true;
             this.error = null;
             try {
-                const data = await mealServices.getListMeals();
+                const data = await mealServices.getSearchAlphabetsMeals(val);
                 this.meals = data.meals || [];
+                console.log(data.meals)
             } catch (err) {
                 this.error = err.message || "Failed to fetch meals";
                 // message.error(this.error);
@@ -83,6 +89,22 @@ export const useMealStore = defineStore('mealStore', {
             try {
                 const data = await mealServices.getAreaMeals(val);
                 this.areaMeals = data.meals || [];
+            } catch (err) {
+                this.error = err.message || "Failed to fetch area meals";
+                notification.error({
+                    message: 'Error Fetching',
+                    description: this.error,
+                });
+            } finally {
+                this.isLoading = false;
+            }
+        },
+        async fetchMealDetails(id) {
+            this.isLoading = true;
+            this.error = null;
+            try {
+                const data = await mealServices.getMealDetails(id);
+                this.mealDetails = data.meals || [];
             } catch (err) {
                 this.error = err.message || "Failed to fetch area meals";
                 notification.error({

@@ -1,5 +1,9 @@
 <script setup>
 
+import {useRouter} from "vue-router";
+import {APP_ROUTES} from "../../../utils/config.js";
+
+const router = useRouter();
 const props = defineProps({
   src: {
     type: String,
@@ -13,13 +17,27 @@ const props = defineProps({
     type: String,
     required: true
   },
+  isSearchMeal: {
+    type: Boolean,
+    default: false
+  },
+  id: {
+    type: String,
+    default: null
+  },
 })
+
+const handleNavigate= ()=> {
+  props.isSearchMeal && router.push(APP_ROUTES.MEAL_DETAILS.replace(":id", props.id));
+}
+
+
 
 </script>
 <template>
-  <a-card>
+  <a-card @click="handleNavigate" class="shadow-lg">
     <template #cover>
-      <img :alt="props.name" :src="props.src" class="h-48 object-contain p-4" />
+      <img :alt="props.name" :src="props.src" :class="!isSearchMeal ?  'h-48 object-contain' : 'h-full object-cover'" />
     </template>
     <a-card-meta :title="props.name">
       <template #description>
