@@ -37,7 +37,6 @@ export const useMealStore = defineStore('mealStore', {
             try {
                 const data = await mealServices.getSearchAlphabetsMeals(val);
                 this.meals = data.meals || [];
-                console.log(data.meals)
             } catch (err) {
                 this.error = err.message || "Failed to fetch meals";
                 // message.error(this.error);
